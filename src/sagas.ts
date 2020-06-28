@@ -1,6 +1,6 @@
-import { all } from 'redux-saga/effects';
-import { watchGetPosts } from './pages/sagas';
+import { all } from "redux-saga/effects";
+import { watchGetArticlesPosts } from "./pages/Feeds/sagas";
 
 export default function* rootSaga() {
-  yield all([watchGetPosts()]);
+  yield all([watchGetArticlesPosts()]);
 }

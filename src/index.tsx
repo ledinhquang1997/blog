@@ -1,22 +1,34 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import 'antd/dist/antd.css'; // or 'antd/dist/antd.less'
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
-import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import rootReducer from './reducers';
-import createSagaMiddleware from 'redux-saga';
-import rootSaga from './sagas';
+import React from "react";
+import ReactDOM from "react-dom";
+import "antd/dist/antd.css"; // or 'antd/dist/antd.less'
+import "./index.css";
+import App from "./App";
+import * as serviceWorker from "./serviceWorker";
+import { Provider } from "react-redux";
+import { createStore, applyMiddleware } from "redux";
+import rootReducer from "./reducers";
+import createSagaMiddleware from "redux-saga";
+import rootSaga from "./sagas";
 
-import { composeWithDevTools } from 'redux-devtools-extension';
+import { composeWithDevTools } from "redux-devtools-extension";
+import { loadingBarMiddleware } from "react-redux-loading-bar";
+import storeHolder from "./redux/storeHolder";
 const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(
   rootReducer,
-  composeWithDevTools(applyMiddleware(sagaMiddleware))
+  composeWithDevTools(
+    applyMiddleware(
+      sagaMiddleware,
+      loadingBarMiddleware({
+        promiseTypeSuffixes: ["REQUEST", "SUCCESS", "FAILURE"],
+      })
+    )
+  )
 );
+
+storeHolder.setStore(store as any);
+
 
 sagaMiddleware.run(rootSaga);
 
@@ -26,7 +38,7 @@ ReactDOM.render(
       <App />
     </Provider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change
