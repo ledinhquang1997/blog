@@ -4,8 +4,8 @@ export interface ArticlesRequest {
   tag?: string | string[];
   author?: string | string[];
   favorited?: string | string[];
-  limit: number;
-  offset: number;
+  limit?: number;
+  offset?: number;
 }
 
 export interface ArticlesState {

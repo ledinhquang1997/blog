@@ -6,17 +6,21 @@ import {
 } from "./actions";
 import articlesService from "./services/api/articlesService";
 import { updateEntities } from "../../redux/entities/actions";
-import { normalizeData } from "../../redux/redux";
+import { normalizeData, createInjectableSaga } from "../../redux/redux";
 import { EntitiesName } from "../../redux/entities/constants";
+import { stateContext, ArticlesRequest } from "./state";
+import { Action } from "redux-actions";
 
-function* getArticlesSagas() {
+function* getArticlesSagas(action: Action<ArticlesRequest>) {
   try {
-    const res = yield call(articlesService.getArticles);
+    const res = yield call(articlesService.getArticles, action.payload);
     const { result, entities } = normalizeData(
       res,
       EntitiesName.articles,
       "slug"
     );
+
+    console.log(result,'result')
     yield put(updateEntities(entities));
 
     yield put(
@@ -33,3 +37,8 @@ function* getArticlesSagas() {
 export function* watchGetArticlesPosts() {
   yield takeEvery(getArticleList().type, getArticlesSagas);
 }
+
+export const articlesSaga = createInjectableSaga(
+  stateContext,
+  watchGetArticlesPosts
+);

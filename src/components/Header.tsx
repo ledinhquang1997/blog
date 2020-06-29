@@ -1,12 +1,12 @@
 import React from "react";
-import LoadingBar from "react-redux-loading-bar";
+
 import styled from "styled-components";
 import CustomLink from "./CustomLink";
 
 function Header() {
   return (
     <div>
-      <StyledLoadingBard />
+
 
       <AppHeaderContainer style={{}}>
         <AppHeader>
@@ -24,7 +24,7 @@ function Header() {
                 background: "#b0dcbd",
               }}
             />
-            <Logo>Conduit</Logo>
+            <Logo> "dev-blog"</Logo>
           </div>
 
           <div style={{ display: "flex", alignItems: "center" }}>
@@ -42,11 +42,11 @@ function Header() {
 
 export default Header;
 
-const StyledLoadingBard = styled(LoadingBar)`
-  background-color: #ff6a00;
-  height: 2px;
-  position: absolute;
-`;
+// const StyledLoadingBard = styled(LoadingBar)`
+//   background-color: #ff6a00;
+//   height: 2px;
+//   position: absolute;
+// `;
 
 const Logo = styled.a`
   padding-left: 10px;

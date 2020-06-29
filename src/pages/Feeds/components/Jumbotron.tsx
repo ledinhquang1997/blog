@@ -14,7 +14,7 @@ function Jumbotron() {
       }}
     >
       <span style={{ color: "white", fontWeight: "bold", fontSize: "4rem" }}>
-        conduit
+        "dev-blog"
       </span>
       <p style={{ color: "white", fontWeight: 300, fontSize: "2rem" }}>
         A place to share your knowledge.

@@ -8,9 +8,21 @@ function GlobalFeeds() {
   const dispatchLoadArticles = useDispatchLoadArticles();
   const { action, data: stateData, request } = useArticleListState();
   const { data, total } = stateData;
+
   useEffect(() => {
-    dispatchLoadArticles();
+    dispatchLoadArticles({
+      limit: 20,
+      offset: 0,
+      tag: ["reactjs"],
+    });
   }, []);
+
+  const handleChangePage = (page: number) => {
+    dispatchLoadArticles({
+      offset: page * request.limit,
+      tag: ["reactjs"],
+    });
+  };
 
   const renderItem = (item: string) => {
     return <Feed id={item} />;
@@ -25,6 +37,11 @@ function GlobalFeeds() {
       loading={isLoading}
       itemLayout="vertical"
       size="large"
+      pagination={{
+        total,
+        pageSize: 20,
+        onChange: handleChangePage,
+      }}
       dataSource={data}
       renderItem={renderItem}
       rowKey={(item) => item}

@@ -15,6 +15,23 @@ export function createReducers(stateContext: string, reducers: any): any {
   };
 }
 
+export function createInjectableReducers(
+  stateContext: string,
+  reducers: any
+): any {
+  return {
+    key: stateContext,
+    reducer: reducers,
+  };
+}
+
+export function createInjectableSaga(stateContext: string, saga: any) {
+  return {
+    key: stateContext,
+    saga,
+  };
+}
+
 export const normalizeData = (
   data: any,
   entityName: string,

@@ -4,7 +4,7 @@ import { initialState } from "./state";
 import { createReducers } from "../redux";
 import { stateContext } from "./state";
 
-export const reducer = handleActions(
+export const entitiesReducers = handleActions(
   {
     updateEntities: (
       state: { [key: string]: object } | any,
@@ -30,4 +30,4 @@ export const reducer = handleActions(
   initialState
 );
 
-export default createReducers(stateContext, reducer);
+export default createReducers(stateContext, entitiesReducers);
