@@ -17,7 +17,7 @@ const reducer = handleActions(
     ) => {
       return produce(state, (draft: ArticlesState) => {
         draft.action = action.type;
-        draft.request = { ...state.request, ...action.payload };
+        draft.request = action.payload;
       });
     },
     [getArticleListSuccess]: (state: ArticlesState, action: Action<any>) => {

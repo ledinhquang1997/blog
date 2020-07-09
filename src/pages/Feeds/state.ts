@@ -22,7 +22,7 @@ export const initialState: ArticlesState = {
   action: null,
   error: null,
   request: {
-    limit: 20,
+    limit: 10,
     offset: 0,
   },
   data: {

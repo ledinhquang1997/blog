@@ -3,6 +3,7 @@ import { useDispatchLoadArticles, useArticleListState } from "../../hooks";
 import { List } from "antd";
 import Feed from "../Feed/Feed";
 import { getArticleList } from "../../actions";
+import { useTagFilters } from "../Tags/hooks";
 
 function GlobalFeeds() {
   const dispatchLoadArticles = useDispatchLoadArticles();
@@ -11,16 +12,25 @@ function GlobalFeeds() {
 
   useEffect(() => {
     dispatchLoadArticles({
-      limit: 20,
+      limit: 10,
       offset: 0,
-      tag: ["reactjs"],
     });
   }, []);
 
+  const tags = useTagFilters();
+
+  useEffect(() => {
+    dispatchLoadArticles({
+      ...request,
+      offset: 0,
+      tag:tags
+    });
+  }, [tags]);
+
   const handleChangePage = (page: number) => {
     dispatchLoadArticles({
+      ...request,
       offset: page * request.limit,
-      tag: ["reactjs"],
     });
   };
 
@@ -39,8 +49,9 @@ function GlobalFeeds() {
       size="large"
       pagination={{
         total,
-        pageSize: 20,
+        pageSize: 10,
         onChange: handleChangePage,
+        showSizeChanger: false,
       }}
       dataSource={data}
       renderItem={renderItem}

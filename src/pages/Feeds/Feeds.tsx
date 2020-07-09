@@ -3,12 +3,14 @@ import Jumbotron from "./components/Jumbotron";
 import { Tabs, Card, Tag } from "antd";
 import { Container } from "../../components/Container";
 import { WhiteSpace } from "../../base";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import GlobalFeeds from "./components/GlobalFeeds/GlobalFeeds";
 import { injector } from "../../redux/injector";
 import articleReducers from "./reducers";
+import tagReducers from './components/Tags/reducers';
 import { articlesSaga } from "./sagas";
 import PopularTags from "./components/Tags/PopularTags";
+import { tagsSaga } from "./components/Tags/sagas";
 
 enum FeedTabs {
   global_feeds = "global_feeds",
@@ -16,9 +18,13 @@ enum FeedTabs {
 }
 const { TabPane } = Tabs;
 
+const AnimatedFrame = styled.div`
+  padding-bottom: 20px;
+`;
+
 function Feeds() {
   return (
-    <div style={{paddingBottom:20}}>
+    <AnimatedFrame>
       <Jumbotron />
       <WhiteSpace vertical size="20px" />
       <Container>
@@ -33,7 +39,7 @@ function Feeds() {
               tab={<span>Global Feeds</span>}
               key={FeedTabs.global_feeds}
             >
-              <GlobalFeeds></GlobalFeeds>
+              <GlobalFeeds />
             </TabPane>
             <TabPane
               tab={<span>Your Feeds</span>}
@@ -50,16 +56,16 @@ function Feeds() {
             height: 250,
           }}
         >
-          <PopularTags/>
+          <PopularTags />
         </div>
       </Container>
-    </div>
+    </AnimatedFrame>
   );
 }
 
 export default injector({
-  reducers: [articleReducers],
-  sagas: [articlesSaga],
+  reducers: [articleReducers, tagReducers],
+  sagas: [articlesSaga, tagsSaga],
 })(Feeds) as any;
 
 const StyleTab = styled(Tabs)`
